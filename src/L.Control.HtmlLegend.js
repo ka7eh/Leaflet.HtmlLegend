@@ -17,7 +17,6 @@ L.Control.HtmlLegend = L.Control.extend({
         // if true, legends will be collapsed when a new instance is initialized
         collapsedOnInit: false,
 
-        disableVisibilityControls: false,
         updateOpacity: null,
         defaultOpacity: 1,
         removeIcon: 'leaflet-html-legend-icon-remove',
@@ -190,7 +189,7 @@ L.Control.HtmlLegend = L.Control.extend({
         container.classList.add('layer-control');
 
 
-        if (!this.options.disableVisibilityControls) {
+        if (!legend.disableVisibilityControls) {
             const opacity = layer.opacity || this.options.defaultOpacity || 1;
             this._updateOpacity(layer, opacity);
 

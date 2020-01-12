@@ -29,15 +29,14 @@ Include the JavaScript:
 ```
 
 
-#### Options:
+#### Control Options:
 | Option | Type | Default | Description |
 | :---   | :--- | :---    | :---        |
 | position | String | 'topright' | Map position of element |
-| legend | Array | - | Array of legend entries (see below for the structure) |
+| legend | Array | - | Array of legend entries (see legend options below for details) |
 | collapseSimple | bool | false | Whether to use compact presentation for legend entries that are from a simple renderer |
 | detectStreched | bool | false | Test to see if legend entries look stretched (these are usually in sets of 3 with the middle element having no label) |
 | collapsedOnInit | bool | false | Whether to initialize instance in collapsed mode |
-| disableVisibilityControls | bool | false | Whether to add visibility toggle button and opacity sliders |
 | updateOpacity | function | null | If set, this function is used to update opacity of the attached layer (it receives the layer and opacity as arguments) |
 | defaultOpacity | number | 1 | Default opacity for layers in specified in legends |
 | removeIcon | String | 'leaflet-html-legend-icon-remove' | css class for the remove icon |
@@ -45,17 +44,22 @@ Include the JavaScript:
 | hiddenIcon | String | 'leaflet-html-legend-icon-eye-slash' | css class for the hidden icon on opacity slider |
 | toggleIcon | String | 'leaflet-html-legend-icon-eye-slash' | css class for the icon on visibility toggle button |
 
-Each entry in `legends` array has:
-* name
-* layer (optional): a leaflet layer
-* allowRemove (optional): boolean
-* array of elements
+#### Legend Options:
+| Option | Type | Default | Description |
+| :---   | :--- | :---    | :---        |
+| name | String | - | Legend label |
+| layer | Leaflet layer | - | The leafel layer to connect to this legend. The legend can control the layer visiblity via opacity slider, if `disableVisibilityControls` is set to true |
+| allowRemove | boolean | false | Whether to add a remove icon that allows removal of the legend from the control |
+| disableVisibilityControls | bool | false | Whether to add visibility toggle button and opacity slider |
+| elements | Array | - | Array of elements (see element options below for details) |
 
 
-Each element has:
-* label (optional)
-* html (optional): string representaiton of an HTML elemnt that goes into the legend block
-* style (optional): an object containing css styling of the legend block
+#### Element options:
+| Option | Type | Default | Description |
+| :---   | :--- | :---    | :---        |
+| label | String | - | Entry label |
+| html | String | - | String representaiton of an HTML elemnt that goes into the legend block |
+| style | Object | - | An object containing css styling of the legend block |
 
 You can use `addLegend` method to add legends to existing instances of `HtmlLegend`:
 ```javascript

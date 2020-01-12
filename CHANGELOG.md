@@ -1,5 +1,6 @@
-0.3.5 (2020-01-11)
+0.4.0 (2020-01-12)
   * Add `allowRemove` option for legends
+  * Move `disableVisibilityControls` from the control options to legend options
 
 0.3.4 (2018-07-19)
   * Bug fix: throw error if `addLegend` is called before control is added to the map
