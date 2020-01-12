@@ -1,3 +1,6 @@
+0.3.5 (2020-01-11)
+  * Add `allowRemove` option for legends
+
 0.3.4 (2018-07-19)
   * Bug fix: throw error if `addLegend` is called before control is added to the map
 

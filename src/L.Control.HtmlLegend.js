@@ -20,6 +20,7 @@ L.Control.HtmlLegend = L.Control.extend({
         disableVisibilityControls: false,
         updateOpacity: null,
         defaultOpacity: 1,
+        removeIcon: 'leaflet-html-legend-icon-remove',
         visibleIcon: 'leaflet-html-legend-icon-eye',
         hiddenIcon: 'leaflet-html-legend-icon-eye-slash',
         toggleIcon: 'leaflet-html-legend-icon-eye'
@@ -61,6 +62,10 @@ L.Control.HtmlLegend = L.Control.extend({
         if (entry) {
             if (entry.layer && entry.events) {
                 Object.entries(entry.events).forEach(([event, handler]) => entry.layer.off(event, handler))
+                if (this._map.hasLayer(entry.layer)) {
+                    this._activeLayers -= 1;
+                    this._checkVisibility();
+                }
             }
             L.DomUtil.remove(this._entries[itemIdx].container)
             delete this._entries[itemIdx]
@@ -90,6 +95,13 @@ L.Control.HtmlLegend = L.Control.extend({
         const block = L.DomUtil.create('div', className, this._container);
         const entryIdx = ++this._lastId;
         this._entries[entryIdx] = { container: block }
+
+        if (legend.allowRemove) {
+            const removeButton = L.DomUtil.create('i', `remove-button ${this.options.removeIcon}`, block);
+            L.DomEvent.on(removeButton, 'click', (e) => {
+                this.removeLegend(entryIdx);
+            });
+        }
 
         if (this.options.collapseSimple && elements.length === 1 && !elements[0].label) {
             this._addElement(elements[0].html, legend.name, elements[0].style, block);
@@ -176,6 +188,7 @@ L.Control.HtmlLegend = L.Control.extend({
         }
 
         container.classList.add('layer-control');
+
 
         if (!this.options.disableVisibilityControls) {
             const opacity = layer.opacity || this.options.defaultOpacity || 1;

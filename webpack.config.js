@@ -1,20 +1,27 @@
 const path = require('path');
 const Webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     context: __dirname,
+
+    target: 'web',
+
+    mode: 'production',
+
     devtool: 'source-map',
 
     entry: {
-        'L.Control.HtmlLegend.js': './src/L.Control.HtmlLegend.js',
+        'L.Control.HtmlLegend': './src/L.Control.HtmlLegend.js',
         'L.Control.HtmlLegend.css': './src/L.Control.HtmlLegend.css'
     },
 
     output: {
         path: path.resolve('dist'),
-        filename: '[name]',
-        sourceMapFilename: '[name].map'
+        filename: '[name].js',
+        sourceMapFilename: '[name].js.map'
     },
 
     module: {
@@ -22,32 +29,27 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/,
-                options: {
-                    presets: ['es2015']
-                }
+                exclude: /node_modules/
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: {
-                        loader: 'css-loader',
-                        options: {
-                            minimize: true
-                        }
-                    }
-                })
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             }
         ]
     },
 
+    optimization: {
+        minimize: true
+    },
+
     plugins: [
-        new ExtractTextPlugin('L.Control.HtmlLegend.css'),
-        new Webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
-            compressor: {
-                warnings: false
-            }
-        })
+        new Webpack.DefinePlugin({
+            'process.env.NODE_ENV': '"production"'
+        }),
+        new IgnoreEmitPlugin(/^.*css\.js.*$/),
+        new MiniCssExtractPlugin({
+            filename: '[name]',
+        }),
+        new OptimizeCSSAssetsPlugin()
     ]
 };

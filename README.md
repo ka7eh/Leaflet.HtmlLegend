@@ -40,12 +40,15 @@ Include the JavaScript:
 | disableVisibilityControls | bool | false | Whether to add visibility toggle button and opacity sliders |
 | updateOpacity | function | null | If set, this function is used to update opacity of the attached layer (it receives the layer and opacity as arguments) |
 | defaultOpacity | number | 1 | Default opacity for layers in specified in legends |
+| removeIcon | String | 'leaflet-html-legend-icon-remove' | css class for the remove icon |
 | visibleIcon | String | 'leaflet-html-legend-icon-eye' | css class for the visible icon on opacity slider |
 | hiddenIcon | String | 'leaflet-html-legend-icon-eye-slash' | css class for the hidden icon on opacity slider |
 | toggleIcon | String | 'leaflet-html-legend-icon-eye-slash' | css class for the icon on visibility toggle button |
 
-Each entry in `legends` array can have the following keys:
+Each entry in `legends` array has:
 * name
+* layer (optional): a leaflet layer
+* allowRemove (optional): boolean
 * array of elements
 
 
