@@ -143,7 +143,7 @@ L.Control.HtmlLegend = L.Control.extend({
         if (style) {
             Object.entries(style).forEach(([k, v]) => { symbol.style[k] = v; });
         }
-        symbol.innerHTML = html;
+        symbol.innerHTML = html || '';
         if (label) {
             L.DomUtil.create('label', null, row).innerHTML = label;
         }

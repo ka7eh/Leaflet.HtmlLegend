@@ -1,6 +1,7 @@
 0.4.0 (2020-01-12)
   * Add `allowRemove` option for legends
   * Move `disableVisibilityControls` from the control options to legend options
+  * Fix an issue with missing `html` key in legend elements props
 
 0.3.4 (2018-07-19)
   * Bug fix: throw error if `addLegend` is called before control is added to the map
